@@ -1,6 +1,7 @@
 import React from 'react'
 import { clsx } from 'clsx'
 import styled from 'styled-components'
+import { getVariantColor } from '../../../utils/helper'
 
 interface IProps {
   className?: string
@@ -11,17 +12,17 @@ interface IProps {
 
 const Button = styled.button<{ variant?: 'primary' | 'accent' }>`
   padding: 0.5rem 1.5rem;
-  background-color: ${({ theme, variant }) =>
-    variant === 'accent' ? theme.colors.accent : theme.colors.primary};
+  background-color: ${({ theme, variant }) => getVariantColor(variant, theme, 'bg')};
   color: white;
   cursor: pointer;
   border: none;
-  border: 1px solid ${props => props.theme.colors.primary};
+  border: 1px solid ${({ theme, variant }) => getVariantColor(variant, theme, 'bg')};
   border-radius: 0.25rem;
   transition: all 0.3s ease-in-out;
 
   &:hover {
-    background-color: ${props => `color-mix(in srgb, black 20%, ${props.theme.colors.primary})`};
+    background-color: ${({ theme, variant }) => getVariantColor(variant, theme, 'hover')};
+    border-color: ${({ theme, variant }) => getVariantColor(variant, theme, 'hover')};
   }
 
   span {

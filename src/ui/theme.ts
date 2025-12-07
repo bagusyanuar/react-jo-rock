@@ -2,6 +2,7 @@ export interface Theme {
     colors: {
         primary: string
         accent: string
+        [key: string]: string
     }
 }
 

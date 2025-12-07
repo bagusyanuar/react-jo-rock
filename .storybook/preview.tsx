@@ -1,11 +1,16 @@
 import type { Preview } from '@storybook/react';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { defaultTheme } from '../src/theme';
+import { defaultTheme } from '../src/ui/theme';
 
 export const decorators = [
   (Story: any) => (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={{
+      colors: { 
+        ...defaultTheme.colors,
+        primary: '#f43f5e' 
+      }
+    }}>
       <Story />
     </ThemeProvider>
   ),
