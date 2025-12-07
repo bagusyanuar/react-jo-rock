@@ -1,4 +1,4 @@
-import { Theme } from '../theme'
+import { Theme } from '../types/theme'
 
 export const getVariantColor = (
     variant: string | undefined,
