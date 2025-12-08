@@ -4,7 +4,7 @@ import { LuMail } from 'react-icons/lu'
 
 const meta: Meta<typeof JRTextfield> = {
     component: JRTextfield,
-    title: "Example/Texfield",
+    title: "Example/Input/Texfield",
 };
 
 export default meta;
