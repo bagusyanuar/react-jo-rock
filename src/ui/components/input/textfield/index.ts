@@ -1,1 +1,1 @@
-export { default as JRTextfield } from './JRTextfield'
+export { default as GTextfield } from './GTextfield'

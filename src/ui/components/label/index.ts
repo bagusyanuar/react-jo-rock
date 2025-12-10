@@ -1,1 +1,1 @@
-export { default as JRLabel } from './JRLabel'
+export { default as GLabel } from './GLabel'

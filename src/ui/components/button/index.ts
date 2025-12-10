@@ -1,1 +1,1 @@
-export { default as JRButton } from './JRButton'
+export { default as GButton } from './GButton'

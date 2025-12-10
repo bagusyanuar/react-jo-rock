@@ -10,7 +10,7 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
     isError?: boolean
 }
 
-const JRPasswordfield = React.forwardRef<HTMLInputElement, IProps>(
+const GPasswordfield = React.forwardRef<HTMLInputElement, IProps>(
     (
         {
             className = '',
@@ -57,7 +57,7 @@ const JRPasswordfield = React.forwardRef<HTMLInputElement, IProps>(
         )
     })
 
-export default JRPasswordfield
+export default GPasswordfield
 
 const PasswordfieldWrapper = styled.div<{
     $disabled?: boolean,

@@ -1,1 +1,1 @@
-export { default as JRPasswordfield } from './JRPasswordfield'
+export { default as GPasswordfield } from './GPasswordfield'

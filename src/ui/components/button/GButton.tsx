@@ -12,7 +12,7 @@ interface IProps {
   onClick?: () => void
 }
 
-const JRButton: React.FC<IProps> = ({
+const GButton: React.FC<IProps> = ({
   variant = 'primary',
   text = 'Button',
   className = '',
@@ -47,7 +47,7 @@ const JRButton: React.FC<IProps> = ({
   )
 }
 
-export default JRButton
+export default GButton
 
 const spin = keyframes`
   from {

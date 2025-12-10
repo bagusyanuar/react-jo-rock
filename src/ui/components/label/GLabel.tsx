@@ -7,7 +7,7 @@ interface IProps {
     className?: string
 }
 
-const JRLabel: React.FC<IProps> = ({
+const GLabel: React.FC<IProps> = ({
     text = 'Label',
     className = '',
     required = false
@@ -20,7 +20,7 @@ const JRLabel: React.FC<IProps> = ({
     )
 }
 
-export default JRLabel
+export default GLabel
 
 const Label = styled.label`
     display: flex;

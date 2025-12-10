@@ -13,7 +13,7 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
     isError?: boolean
 }
 
-const JRTextfield = React.forwardRef<HTMLInputElement, IProps>((
+const GTextfield = React.forwardRef<HTMLInputElement, IProps>((
     {
         className = '',
         inputClassName = '',
@@ -52,7 +52,7 @@ const JRTextfield = React.forwardRef<HTMLInputElement, IProps>((
     )
 })
 
-export default JRTextfield
+export default GTextfield
 
 const TextfieldWrapper = styled.div<{
     $prefixIcon?: boolean,
