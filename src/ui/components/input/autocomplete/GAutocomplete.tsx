@@ -37,6 +37,15 @@ const GAutocomplete: React.FC<IProps> = ({
     }, [query, options])
 
     useEffect(() => {
+        if (value) {
+            setQuery(value.label);
+        } else {
+            setQuery("");
+        }
+    }, [value])
+
+
+    useEffect(() => {
         const handler = (e: MouseEvent) => {
             if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
                 setIsOpen(false);
@@ -47,9 +56,8 @@ const GAutocomplete: React.FC<IProps> = ({
     }, []);
 
     const handleSelect = (option: GAutocompleteOption) => {
-        setQuery(option.label)
-        setIsOpen(false)
         onChange?.(option)
+        setIsOpen(false)
     }
 
     return (
@@ -82,9 +90,9 @@ const GAutocomplete: React.FC<IProps> = ({
                                     return <OptionItem
                                         key={k}
                                         onClick={() => handleSelect(v)}
-                                        $isSelected={k === 1}
+                                        $isSelected={value?.value === v.value}
                                     >
-                                        {v.value}
+                                        {v.label}
                                     </OptionItem>
                                 })
                             )
@@ -164,13 +172,13 @@ const Dropdown = styled.ul`
     z-index: 20;
 `
 
-const OptionItem = styled.li<{$isSelected?: boolean}>`
+const OptionItem = styled.li<{ $isSelected?: boolean }>`
     font-size: 0.75rem;
     padding: 0.5rem 0.5rem;
     cursor: pointer;
     transition: background 0.3s ease-in-out;
-    background: ${({theme, $isSelected}) => ($isSelected ? theme.colors.primary : 'white')};
-    color: ${({theme, $isSelected}) => ($isSelected ? 'white' : '404040')};
+    background: ${({ theme, $isSelected }) => ($isSelected ? theme.colors.primary : 'white')};
+    color: ${({ theme, $isSelected }) => ($isSelected ? 'white' : '404040')};
 
     &:hover {
         background: ${({ theme, $isSelected }) => ($isSelected ? theme.colors.primary : `color-mix(in srgb, white 90%, ${theme.colors.primary})`)};

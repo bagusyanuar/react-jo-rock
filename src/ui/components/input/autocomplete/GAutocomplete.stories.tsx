@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import GAutocomplete, { type GAutocompleteOption } from "./GAutocomplete";
-import { LuMail } from 'react-icons/lu'
+import React from 'react'
 
 const meta: Meta<typeof GAutocomplete> = {
-    component: GAutocomplete,
     title: "Example/Input/Autocomplete",
+    component: GAutocomplete,
+    tags: ["autodocs"],
 };
 
 export default meta;
@@ -37,7 +38,22 @@ const options: GAutocompleteOption[] = [
 ];
 
 export const Primary: StoryObj<typeof GAutocomplete> = {
+    render: (args) => {
+        const [value, setValue] = React.useState<GAutocompleteOption | null>(null);
+
+        return (
+            <GAutocomplete
+                {...args}
+                value={value}
+                onChange={(v) => setValue(v)}
+            />
+        );
+    },
     args: {
-        options: options
+        options: [
+            { value: "1", label: "Satu" },
+            { value: "2", label: "Dua" },
+            { value: "3", label: "Tiga" },
+        ],
     },
 };
