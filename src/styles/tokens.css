@@ -1,21 +1,42 @@
 :root {
   /* =========================
-     BRAND (HSL BASE)
+     BRAND (OKLCH BASE)
      ========================= */
 
-  --g-brand-h: 340;
-  --g-brand-s: 90%;
-  --g-brand-l: 50%;
+  --g-brand-c: 0.177; 
+  --g-brand-h: 177; 
 
-  /* Shade scale */
-  --g-brand-50: hsl(var(--g-brand-h) var(--g-brand-s) 95%);
-  --g-brand-100: hsl(var(--g-brand-h) var(--g-brand-s) 90%);
-  --g-brand-200: hsl(var(--g-brand-h) var(--g-brand-s) 80%);
-  --g-brand-300: hsl(var(--g-brand-h) var(--g-brand-s) 70%);
-  --g-brand-400: hsl(var(--g-brand-h) var(--g-brand-s) 55%);
-  --g-brand-500: hsl(var(--g-brand-h) var(--g-brand-s) 45%);
-  --g-brand-600: hsl(var(--g-brand-h) var(--g-brand-s) 35%);
-  --g-brand-700: hsl(var(--g-brand-h) var(--g-brand-s) 25%);
-  --g-brand-800: hsl(var(--g-brand-h) var(--g-brand-s) 18%);
-  --g-brand-900: hsl(var(--g-brand-h) var(--g-brand-s) 12%);
+  /* Shade scale (Menggunakan g-brand-c dan g-brand-h di setiap shade) */
+  /* Lightness (L) disesuaikan untuk transisi yang mulus */
+
+  --g-brand-50: oklch(97.2% var(--g-brand-c) var(--g-brand-h));
+  --g-brand-100: oklch(93.1% var(--g-brand-c) var(--g-brand-h));
+  --g-brand-200: oklch(84.3% var(--g-brand-c) var(--g-brand-h));
+  --g-brand-300: oklch(74.5% var(--g-brand-c) var(--g-brand-h));
+  --g-brand-400: oklch(64.4% var(--g-brand-c) var(--g-brand-h));
+  --g-brand-500: oklch(53.3% var(--g-brand-c) var(--g-brand-h)); 
+  --g-brand-600: oklch(43.3% var(--g-brand-c) var(--g-brand-h));
+  --g-brand-700: oklch(33.6% var(--g-brand-c) var(--g-brand-h));
+  --g-brand-800: oklch(25.2% var(--g-brand-c) var(--g-brand-h));
+  --g-brand-900: oklch(17.8% var(--g-brand-c) var(--g-brand-h));
+
+  /* =========================
+     ACCENT (MAGENTA/PINK)
+     ========================= */
+  --g-accent-c: 0.177; /* Chroma sama dengan brand */
+  --g-accent-h: 357; /* Magenta/Pink (Komplementer) */
+
+  /* Shade scale untuk Accent */
+  --g-accent-50: oklch(97.2% var(--g-accent-c) var(--g-accent-h));
+  --g-accent-100: oklch(93.1% var(--g-accent-c) var(--g-accent-h));
+  --g-accent-200: oklch(84.3% var(--g-accent-c) var(--g-accent-h));
+  --g-accent-300: oklch(74.5% var(--g-accent-c) var(--g-accent-h));
+  --g-accent-400: oklch(64.4% var(--g-accent-c) var(--g-accent-h));
+  
+  --g-accent-500: oklch(53.3% var(--g-accent-c) var(--g-accent-h)); /* Accent Base */
+  
+  --g-accent-600: oklch(43.3% var(--g-accent-c) var(--g-accent-h));
+  --g-accent-700: oklch(33.6% var(--g-accent-c) var(--g-accent-h));
+  --g-accent-800: oklch(25.2% var(--g-accent-c) var(--g-accent-h));
+  --g-accent-900: oklch(17.8% var(--g-accent-c) var(--g-accent-h));
 }
