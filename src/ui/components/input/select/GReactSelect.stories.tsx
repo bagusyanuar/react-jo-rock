@@ -14,7 +14,7 @@ const options: Option[] = [
 ]
 
 const meta: Meta<typeof GReactSelect<Option>> = {
-  title: 'Example/Input/GReactSelect',
+  title: 'Example/Input/ReactSelect',
   component: GReactSelect,
   args: {
     options,

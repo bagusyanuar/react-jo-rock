@@ -1,0 +1,21 @@
+:root {
+  /* =========================
+     BRAND (HSL BASE)
+     ========================= */
+
+  --g-brand-h: 340;
+  --g-brand-s: 90%;
+  --g-brand-l: 50%;
+
+  /* Shade scale */
+  --g-brand-50: hsl(var(--g-brand-h) var(--g-brand-s) 95%);
+  --g-brand-100: hsl(var(--g-brand-h) var(--g-brand-s) 90%);
+  --g-brand-200: hsl(var(--g-brand-h) var(--g-brand-s) 80%);
+  --g-brand-300: hsl(var(--g-brand-h) var(--g-brand-s) 70%);
+  --g-brand-400: hsl(var(--g-brand-h) var(--g-brand-s) 55%);
+  --g-brand-500: hsl(var(--g-brand-h) var(--g-brand-s) 45%);
+  --g-brand-600: hsl(var(--g-brand-h) var(--g-brand-s) 35%);
+  --g-brand-700: hsl(var(--g-brand-h) var(--g-brand-s) 25%);
+  --g-brand-800: hsl(var(--g-brand-h) var(--g-brand-s) 18%);
+  --g-brand-900: hsl(var(--g-brand-h) var(--g-brand-s) 12%);
+}
