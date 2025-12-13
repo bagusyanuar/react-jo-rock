@@ -2,6 +2,7 @@ import type { Preview } from '@storybook/react';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { defaultTheme } from '../src/common/types/theme';
+import './storybook.css';
 
 export const decorators = [
   (Story: any) => (
