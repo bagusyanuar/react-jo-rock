@@ -1,1 +1,1 @@
-export {default as GReactSelect} from './GReactSelect'
+export {default as GSelect} from './GSelect'

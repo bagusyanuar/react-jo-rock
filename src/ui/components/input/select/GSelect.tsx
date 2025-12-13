@@ -15,7 +15,7 @@ interface IProps<OptionType> extends SelectProps<OptionType, false, GroupBase<Op
     isClearable?: boolean
 }
 
-const GReactSelect = <OptionType,>({
+const GSelect = <OptionType,>({
     className = "",
     isError = false,
     placeholder = 'choose an option',
@@ -94,8 +94,8 @@ const GReactSelect = <OptionType,>({
                     option: ({ isSelected, isFocused }) =>
                         twMerge(
                             "!cursor-pointer px-2.5 py-1.5 !text-xs rounded-sm transition-colors duration-300 ease-in-out",
-                            isSelected && "!bg-teal-500 text-white",
-                            !isSelected && isFocused && "!bg-teal-100 !text-neutral-700",
+                            isSelected && "!bg-(--g-brand-500) text-white",
+                            !isSelected && isFocused && "!bg-(--g-brand-50) !text-neutral-700",
                             !isSelected && !isFocused && "!text-neutral-700"
                         )
                 }}
@@ -111,4 +111,4 @@ const GReactSelect = <OptionType,>({
     )
 }
 
-export default GReactSelect
+export default GSelect

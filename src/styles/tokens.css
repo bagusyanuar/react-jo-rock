@@ -9,7 +9,7 @@
   /* Shade scale (Menggunakan g-brand-c dan g-brand-h di setiap shade) */
   /* Lightness (L) disesuaikan untuk transisi yang mulus */
 
-  --g-brand-50: oklch(97.2% var(--g-brand-c) var(--g-brand-h));
+  --g-brand-50: oklch(97.2% 0.025 var(--g-brand-h));
   --g-brand-100: oklch(93.1% var(--g-brand-c) var(--g-brand-h));
   --g-brand-200: oklch(84.3% var(--g-brand-c) var(--g-brand-h));
   --g-brand-300: oklch(74.5% var(--g-brand-c) var(--g-brand-h));
@@ -27,7 +27,7 @@
   --g-accent-h: 357; /* Magenta/Pink (Komplementer) */
 
   /* Shade scale untuk Accent */
-  --g-accent-50: oklch(97.2% var(--g-accent-c) var(--g-accent-h));
+  --g-accent-50: oklch(97.2% 0.025 var(--g-accent-h));
   --g-accent-100: oklch(93.1% var(--g-accent-c) var(--g-accent-h));
   --g-accent-200: oklch(84.3% var(--g-accent-c) var(--g-accent-h));
   --g-accent-300: oklch(74.5% var(--g-accent-c) var(--g-accent-h));
