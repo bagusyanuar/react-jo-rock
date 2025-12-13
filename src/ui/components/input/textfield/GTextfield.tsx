@@ -44,7 +44,7 @@ const GTextfield = React.forwardRef<HTMLInputElement, IProps>((
             )}
         >
             {PrefixIcon && <div className={twMerge(
-                'h-full w-8 flex items-center justify-center',
+                'h-full w-8 flex items-center justify-center text-neutral-700',
                 isError && 'text-red-500'
             )}>
                 <PrefixIcon size={14}/>
@@ -65,7 +65,7 @@ const GTextfield = React.forwardRef<HTMLInputElement, IProps>((
                 {...props}
             />
             {SuffixIcon && <div className={twMerge(
-                'h-full w-8 flex items-center justify-center',
+                'h-full w-8 flex items-center justify-center text-neutral-700',
                 isError && 'text-red-500'
             )}>
                 <SuffixIcon size={14} />
