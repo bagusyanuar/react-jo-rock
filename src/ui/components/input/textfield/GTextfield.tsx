@@ -1,8 +1,15 @@
 import React from 'react'
-import styled from 'styled-components'
 import type { IconType } from 'react-icons'
+import { twMerge } from 'tailwind-merge'
+import {cn} from '../../../../common/utils/cn'
+import {
+  textfieldWrapperVariants,
+  textfieldInputVariants,
+} from './textfield.variants'
+import type { VariantProps } from 'class-variance-authority'
 
-interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
+
+interface IProps extends React.InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof textfieldWrapperVariants> {
     className?: string
     inputClassName?: string
     placeholder?: string
@@ -27,80 +34,44 @@ const GTextfield = React.forwardRef<HTMLInputElement, IProps>((
     }, ref
 ) => {
     return (
-        <TextfieldWrapper
-            className={className}
-            $prefixIcon={!!PrefixIcon}
-            $suffixIcon={!!SuffixIcon}
-            $disabled={disabled}
-            $isError={isError}
+        <div
+            className={cn(
+                textfieldWrapperVariants({
+                    error: isError,
+                    disabled
+                }),
+                className
+            )}
         >
-            {PrefixIcon && <IconWrapper $isError={isError}>
-                <PrefixIcon size={14} />
-            </IconWrapper>}
-            <Textfield
+            {PrefixIcon && <div className={twMerge(
+                'h-full w-8 flex items-center justify-center',
+                isError && 'text-red-500'
+            )}>
+                <PrefixIcon size={14}/>
+            </div>}
+            <input
                 ref={ref}
                 type={type}
-                className={inputClassName}
+                className={cn(
+                    textfieldInputVariants({
+                        hasPrefixIcon: !!PrefixIcon,
+                        hasSuffixIcon: !!SuffixIcon,
+                        disabled
+                    }),
+                    inputClassName
+                )}
                 placeholder={placeholder}
                 disabled={disabled}
                 {...props}
             />
-            {SuffixIcon && <IconWrapper $isError={isError}>
+            {SuffixIcon && <div className={twMerge(
+                'h-full w-8 flex items-center justify-center',
+                isError && 'text-red-500'
+            )}>
                 <SuffixIcon size={14} />
-            </IconWrapper>}
-        </TextfieldWrapper>
+            </div>}
+        </div>
     )
 })
 
 export default GTextfield
-
-const TextfieldWrapper = styled.div<{
-    $prefixIcon?: boolean,
-    $suffixIcon?: boolean,
-    $disabled?: boolean,
-    $isError?: boolean
-}>`
-    display: flex;
-    align-itmes: center;
-    justify-content: center;
-    width: 12.5rem;
-    background-color: ${({ theme, $disabled }) => $disabled ? theme.colors.disabledColor : 'white'};
-    border: 1px solid ${({ theme, $isError }) => $isError ? theme.colors.errorColor : '#9ca3af'};
-    color: #404040;
-    border-radius: 0.25rem;
-    transition: all 0.3s ease-in-out;
-    padding-left: ${({ theme, $prefixIcon }) => $prefixIcon ? '0.125rem' : '0.5rem'};
-    padding-right: ${({ theme, $suffixIcon }) => $suffixIcon ? '0.125rem' : '0.5rem'};
-    
-
-    &:focus-within {
-        border-color: ${({ theme, $isError }) => $isError ? theme.colors.errorColor : 'color-mix(in srgb, black 30%, #9ca3af)'};
-    }
-`;
-
-const Textfield = styled.input`
-    width: 100%;
-    padding: 0.5rem 0;
-    font-size: 0.75rem;
-    border-radius: 0.25rem;
-    line-height: 1;
-    border: none;
-    background: transparent;
-    box-sizing: border-box;
-    color: inherit;
-
-    &:focus {
-        outline: none;
-        box-shadow: none;
-    }
-`
-
-const IconWrapper = styled.div<{ $isError?: boolean }>`
-    height: inherit;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    color: ${({ theme, $isError }) =>
-        $isError ? theme.colors.errorColor : 'inherit'};
-`;
