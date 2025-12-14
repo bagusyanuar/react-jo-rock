@@ -1,2 +1,5 @@
 export * from './textfield'
 export * from './passwordfield'
+export * from './select'
+export * from './checkbox'
+export * from './radio'
