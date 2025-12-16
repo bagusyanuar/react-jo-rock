@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useState } from 'react'
 import ReactDatePicker, { type ReactDatePickerCustomHeaderProps } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { twMerge } from 'tailwind-merge'
@@ -51,33 +51,43 @@ const Input = forwardRef<HTMLInputElement, IInputProps>(({
     </div>
 ));
 
-const Header: React.FC<ReactDatePickerCustomHeaderProps> = ({
+interface IHeaderProps extends ReactDatePickerCustomHeaderProps {
+    viewMode: ViewMode
+    onClick?: () => void
+}
+
+const Header: React.FC<IHeaderProps> = ({
+    viewMode,
+    onClick,
     date,
     decreaseMonth,
     increaseMonth,
+    increaseYear,
+    decreaseYear,
     prevMonthButtonDisabled,
     nextMonthButtonDisabled
 }) => {
     return (
         <div className='flex items-center justify-between px-3 py-2.5 bg-white rounded-t-md!'>
             <button
-                className='text-(--g-brand-500) hover:text-(--g-brand-700) disabled:opacity-40 cursor-pointer'
-                onClick={decreaseMonth}
+                className='text-(--g-brand-500) hover:text-(--g-brand-700) disabled:opacity-40 cursor-pointer focus:outline-none'
+                onClick={viewMode === 'day' ? decreaseMonth : decreaseYear}
                 disabled={prevMonthButtonDisabled}
             >
                 <LuChevronLeft size={16} className='' />
             </button>
-            <span className='text-(--g-brand-500) font-semibold text-sm!'>
-                {
-                    date.toLocaleString('en-US', {
-                        month: 'long',
-                        year: 'numeric',
-                    })
-                }
+            <span
+                className='text-(--g-brand-500) font-semibold text-sm! hover:underline cursor-pointer'
+                onClick={onClick}
+            >
+                {viewMode === 'day' &&
+                    `${date.toLocaleString('id-ID', { month: 'long' })} ${date.getFullYear()}`}
+                {viewMode === 'month' && date.getFullYear()}
+                {viewMode === 'year' && 'Pilih Tahun'}
             </span>
             <button
-                className='text-(--g-brand-500) hover:text-(--g-brand-700) disabled:opacity-40 cursor-pointer'
-                onClick={increaseMonth}
+                className='text-(--g-brand-500) hover:text-(--g-brand-700) disabled:opacity-40 cursor-pointer focus:outline-none'
+                onClick={viewMode === 'day' ? increaseMonth : increaseYear}
                 disabled={nextMonthButtonDisabled}
             >
                 <LuChevronRight size={16} className='text-(--g-brand-500)' />
@@ -86,6 +96,19 @@ const Header: React.FC<ReactDatePickerCustomHeaderProps> = ({
     )
 }
 
+type ViewMode = 'day' | 'month' | 'year'
+
+const VIEW_FLOW: Record<ViewMode, ViewMode> = {
+    day: 'month',
+    month: 'year',
+    year: 'year'
+}
+
+const VIEW_FLOW_ON_SELECT: Record<ViewMode, ViewMode> = {
+    year: 'month',
+    month: 'day',
+    day: 'day',
+}
 
 const GDatepicker: React.FC<IProps> = ({
     value,
@@ -95,13 +118,36 @@ const GDatepicker: React.FC<IProps> = ({
     isError,
     className
 }) => {
+    const [viewMode, setViewMode] = useState<ViewMode>('day')
+
+    const onHeaderClick = () => {
+        setViewMode(prev => VIEW_FLOW[prev])
+    }
     return (
         <div className={twMerge('w-full rounded-md p-0', className)}>
             <ReactDatePicker
                 wrapperClassName='w-full'
+                showPopperArrow={false}
+                popperClassName='-mt-1!'
+                shouldCloseOnSelect={viewMode === 'day'}
+                showYearPicker={viewMode === 'year'}
+                showMonthYearPicker={viewMode === 'month'}
                 selected={value}
-                onChange={onChange}
-                renderCustomHeader={props => <Header {...props} />}
+                onChange={(val) => {
+                    // hanya update value
+                    onChange?.(val)
+                }}
+
+                onSelect={() => {
+                    setViewMode((prev) => VIEW_FLOW_ON_SELECT[prev])
+                }}
+                renderCustomHeader={
+                    props => <Header
+                        viewMode={viewMode}
+                        onClick={onHeaderClick}
+                        {...props}
+                    />
+                }
                 customInput={
                     <Input
                         placeholder={placeholder}
