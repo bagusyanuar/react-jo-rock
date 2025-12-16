@@ -65,3 +65,19 @@ export const DisabledState: Story = {
     placeholder: 'Date picker disabled',
   },
 }
+
+export const YearPicker: Story = {
+  render: ControlledTemplate,
+  args: {
+    placeholder: 'Tanggal terpilih',
+    mode: 'year'
+  },
+}
+
+export const MonthPicker: Story = {
+  render: ControlledTemplate,
+  args: {
+    placeholder: 'Tanggal terpilih',
+    mode: 'month',
+  },
+}

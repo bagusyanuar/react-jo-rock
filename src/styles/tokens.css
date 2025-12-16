@@ -3,8 +3,8 @@
      BRAND (OKLCH BASE)
      ========================= */
 
-  --g-brand-c: 0.177; 
-  --g-brand-h: 177; 
+  --g-brand-c: 0.177;
+  --g-brand-h: 177;
 
   /* Shade scale (Menggunakan g-brand-c dan g-brand-h di setiap shade) */
   /* Lightness (L) disesuaikan untuk transisi yang mulus */
@@ -14,7 +14,7 @@
   --g-brand-200: oklch(84.3% var(--g-brand-c) var(--g-brand-h));
   --g-brand-300: oklch(74.5% var(--g-brand-c) var(--g-brand-h));
   --g-brand-400: oklch(64.4% var(--g-brand-c) var(--g-brand-h));
-  --g-brand-500: oklch(53.3% var(--g-brand-c) var(--g-brand-h)); 
+  --g-brand-500: oklch(53.3% var(--g-brand-c) var(--g-brand-h));
   --g-brand-600: oklch(43.3% var(--g-brand-c) var(--g-brand-h));
   --g-brand-700: oklch(33.6% var(--g-brand-c) var(--g-brand-h));
   --g-brand-800: oklch(25.2% var(--g-brand-c) var(--g-brand-h));
@@ -23,8 +23,10 @@
   /* =========================
      ACCENT (MAGENTA/PINK)
      ========================= */
-  --g-accent-c: 0.177; /* Chroma sama dengan brand */
-  --g-accent-h: 357; /* Magenta/Pink (Komplementer) */
+  --g-accent-c: 0.177;
+  /* Chroma sama dengan brand */
+  --g-accent-h: 357;
+  /* Magenta/Pink (Komplementer) */
 
   /* Shade scale untuk Accent */
   --g-accent-50: oklch(97.2% 0.025 var(--g-accent-h));
@@ -32,9 +34,10 @@
   --g-accent-200: oklch(84.3% var(--g-accent-c) var(--g-accent-h));
   --g-accent-300: oklch(74.5% var(--g-accent-c) var(--g-accent-h));
   --g-accent-400: oklch(64.4% var(--g-accent-c) var(--g-accent-h));
-  
-  --g-accent-500: oklch(53.3% var(--g-accent-c) var(--g-accent-h)); /* Accent Base */
-  
+
+  --g-accent-500: oklch(53.3% var(--g-accent-c) var(--g-accent-h));
+  /* Accent Base */
+
   --g-accent-600: oklch(43.3% var(--g-accent-c) var(--g-accent-h));
   --g-accent-700: oklch(33.6% var(--g-accent-c) var(--g-accent-h));
   --g-accent-800: oklch(25.2% var(--g-accent-c) var(--g-accent-h));
@@ -76,8 +79,9 @@
 
 .react-datepicker__day {
   color: var(--color-neutral-700) !important;
-  width: 1.75rem !important;        /* w-9 */
-  height: 1.75rem !important; 
+  width: 1.75rem !important;
+  /* w-9 */
+  height: 1.75rem !important;
 
   display: inline-flex !important;
   align-items: center !important;
@@ -92,8 +96,8 @@
 }
 
 .react-datepicker__day-name {
-  width: 1.75rem !important; 
-  height: 1.75rem !important; 
+  width: 1.75rem !important;
+  height: 1.75rem !important;
 
   display: inline-flex !important;
   align-items: center !important;
@@ -122,8 +126,9 @@
 /* react datepicker month custom */
 .react-datepicker__month-text {
   color: var(--color-neutral-700) !important;
-  width: 3.75rem !important;        /* w-9 */
-  height: 1.75rem !important; 
+  width: 3.75rem !important;
+  /* w-9 */
+  height: 1.75rem !important;
 
   display: inline-flex !important;
   align-items: center !important;
@@ -149,15 +154,18 @@
 
 /* react datepicker year custom */
 .react-datepicker__year-wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 kolom */
-  gap: 0.125rem;
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  /* 3 kolom */
+  gap: 0.125rem !important;
+  max-width: fit-content !important;
 }
 
 .react-datepicker__year-text {
   color: var(--color-neutral-700) !important;
-  width: 3.75rem !important;        /* w-9 */
-  height: 1.75rem !important; 
+  width: 3.75rem !important;
+  /* w-9 */
+  height: 1.75rem !important;
 
   display: inline-flex !important;
   align-items: center !important;

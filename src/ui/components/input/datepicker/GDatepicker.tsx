@@ -4,8 +4,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { twMerge } from 'tailwind-merge'
 import { LuCalendar, LuChevronLeft, LuChevronRight } from 'react-icons/lu'
 
-
-
 interface IInputProps {
     value?: string
     placeholder?: string
@@ -70,8 +68,14 @@ const Header: React.FC<IHeaderProps> = ({
                 <LuChevronLeft size={16} className='' />
             </button>
             <span
-                className='text-(--g-brand-500) font-semibold text-sm! hover:underline cursor-pointer'
-                onClick={onClick}
+                className={twMerge(
+                    'text-(--g-brand-500) font-semibold text-sm!',
+                    viewMode !== 'year' && 'hover:underline cursor-pointer'
+                )}
+                onClick={() => {
+                    if (viewMode === 'year') return
+                    onClick?.()
+                }}
             >
                 {viewMode === 'day' &&
                     `${date.toLocaleString('id-ID', { month: 'long' })} ${date.getFullYear()}`}
@@ -103,33 +107,65 @@ const VIEW_FLOW_ON_SELECT: Record<ViewMode, ViewMode> = {
     day: 'day',
 }
 
+type PickerMode = ViewMode
+
 export interface IProps {
     value: Date | null
     onChange?: (date: Date | null) => void
+    mode?: PickerMode
     placeholder?: string
     disabled?: boolean
     isError?: boolean
     className?: string
+    dateFormat?: string
 }
+
+const getDateFormat = (mode: PickerMode, dateFormat?: string) => {
+    switch (mode) {
+        case 'year':
+            return 'yyyy'
+        case 'month':
+            if (dateFormat) {
+                return dateFormat
+            }
+            return 'MM/yyyy'
+        default:
+            if (dateFormat) {
+                return dateFormat
+            }
+            return 'dd/MM/yyyy'
+    }
+}
+
 
 const GDatepicker: React.FC<IProps> = ({
     value,
     onChange,
+    dateFormat,
     placeholder,
     disabled,
     isError,
-    className
+    className,
+    mode = 'day',
 }) => {
-    const [viewMode, setViewMode] = useState<ViewMode>('day')
-    const [tempDate, setTempDae] = useState<Date | null>(value)
+    const isStrict = mode !== 'day'
+    const [viewMode, setViewMode] = useState<ViewMode>(mode)
+    const [tempDate, setTempDate] = useState<Date | null>(value)
+
+    /* sync controlled value */
+    useEffect(() => {
+        setTempDate(value)
+    }, [value])
+
+    /* sync mode from parent */
+    useEffect(() => {
+        setViewMode(mode)
+    }, [mode])
 
     const onHeaderClick = () => {
+        if (isStrict) return
         setViewMode(prev => VIEW_FLOW[prev])
     }
-
-    useEffect(() => {
-        setTempDae(value)
-    }, [value])
 
     return (
         <div className={twMerge('w-full rounded-md p-0', className)}>
@@ -137,19 +173,30 @@ const GDatepicker: React.FC<IProps> = ({
                 wrapperClassName='w-full'
                 showPopperArrow={false}
                 popperClassName='-mt-1!'
-                shouldCloseOnSelect={viewMode === 'day'}
+                shouldCloseOnSelect={isStrict || viewMode === 'day'}
                 showYearPicker={viewMode === 'year'}
                 showMonthYearPicker={viewMode === 'month'}
                 selected={value}
                 onChange={(val) => {
-                    setTempDae(val)
+                    // navigasi saja
+                    setTempDate(val)
                 }}
 
-                onSelect={val => {
-                    if (viewMode === 'day' && val) {
+                onSelect={(val) => {
+                    if (!val) return
+
+                    // STRICT MODE → langsung commit
+                    if (isStrict) {
+                        onChange?.(val)
+                        return
+                    }
+
+                    // FLOW MODE
+                    if (viewMode === 'day') {
                         onChange?.(val)
                     }
-                    setViewMode((prev) => VIEW_FLOW_ON_SELECT[prev])
+
+                    setViewMode(prev => VIEW_FLOW_ON_SELECT[prev])
                 }}
                 renderCustomHeader={
                     props => <Header
@@ -165,7 +212,7 @@ const GDatepicker: React.FC<IProps> = ({
                     />
                 }
                 disabled={disabled}
-                dateFormat="dd/MM/yyyy"
+                dateFormat={getDateFormat(mode, dateFormat)}
                 popperPlacement="bottom-end"
             />
         </div>
