@@ -1,17 +1,10 @@
-import React, { forwardRef, useState } from 'react'
+import React, { forwardRef, useState, useEffect, use } from 'react'
 import ReactDatePicker, { type ReactDatePickerCustomHeaderProps } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { twMerge } from 'tailwind-merge'
 import { LuCalendar, LuChevronLeft, LuChevronRight } from 'react-icons/lu'
 
-export interface IProps {
-    value?: Date | null
-    onChange?: (date: Date | null) => void
-    placeholder?: string
-    disabled?: boolean
-    isError?: boolean
-    className?: string
-}
+
 
 interface IInputProps {
     value?: string
@@ -110,6 +103,15 @@ const VIEW_FLOW_ON_SELECT: Record<ViewMode, ViewMode> = {
     day: 'day',
 }
 
+export interface IProps {
+    value: Date | null
+    onChange?: (date: Date | null) => void
+    placeholder?: string
+    disabled?: boolean
+    isError?: boolean
+    className?: string
+}
+
 const GDatepicker: React.FC<IProps> = ({
     value,
     onChange,
@@ -119,10 +121,16 @@ const GDatepicker: React.FC<IProps> = ({
     className
 }) => {
     const [viewMode, setViewMode] = useState<ViewMode>('day')
+    const [tempDate, setTempDae] = useState<Date | null>(value)
 
     const onHeaderClick = () => {
         setViewMode(prev => VIEW_FLOW[prev])
     }
+
+    useEffect(() => {
+        setTempDae(value)
+    }, [value])
+
     return (
         <div className={twMerge('w-full rounded-md p-0', className)}>
             <ReactDatePicker
@@ -134,11 +142,13 @@ const GDatepicker: React.FC<IProps> = ({
                 showMonthYearPicker={viewMode === 'month'}
                 selected={value}
                 onChange={(val) => {
-                    // hanya update value
-                    onChange?.(val)
+                    setTempDae(val)
                 }}
 
-                onSelect={() => {
+                onSelect={val => {
+                    if (viewMode === 'day' && val) {
+                        onChange?.(val)
+                    }
                     setViewMode((prev) => VIEW_FLOW_ON_SELECT[prev])
                 }}
                 renderCustomHeader={
