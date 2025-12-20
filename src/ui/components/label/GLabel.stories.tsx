@@ -3,11 +3,23 @@ import GLabel from "./GLabel";
 
 const meta: Meta<typeof GLabel> = {
     component: GLabel,
-    title: "Example/Label",
+    title: "Components/GLabel",
 };
 
 export default meta;
 
-export const Primary: StoryObj<typeof GLabel> = {
+/* ===============================
+ * Default
+ * =============================== */
+export const Default: StoryObj<typeof GLabel> = {
     args: {},
+};
+
+/* ===============================
+ * With Required
+ * =============================== */
+export const WithRequired: StoryObj<typeof GLabel> = {
+    args: {
+        required: true
+    },
 };

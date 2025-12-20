@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import {twMerge} from 'tailwind-merge'
 
 interface IProps {
     text?: string
@@ -13,25 +13,14 @@ const GLabel: React.FC<IProps> = ({
     required = false
 }) => {
     return (
-        <Label className={className}>
+        <label className={twMerge(
+            'flex gap-1 text-xs text-neutral-700 font-semibold leading-none',
+            className
+        )}>
             {text}
-            {required && <RequiredSymbol>*</RequiredSymbol>}
-        </Label>
+            {required && <div className='text-red-500'>*</div>}
+        </label>
     )
 }
 
 export default GLabel
-
-const Label = styled.label`
-    display: flex;
-    gap: 0.25rem;
-    color: #404040;
-    font-size: 0.75rem;
-    font-weight: 600;
-    margin-bottom: 0.125rem;
-    line-height: 1.5;
-`;
-
-const RequiredSymbol = styled.span`
-    color: ${({theme}) => theme.colors.errorColor};
-`
