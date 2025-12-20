@@ -36,6 +36,7 @@ export const GPopoverTrigger = React.forwardRef<
     <button
       ref={composeRefs(forwardedRef, triggerRef)}
       onClick={handleClick}
+      className='cursor-pointer'
     >
       {children}
     </button>
