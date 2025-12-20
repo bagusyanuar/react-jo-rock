@@ -1,14 +1,12 @@
 import React, {
     useCallback,
     useEffect,
-    useLayoutEffect,
     useState,
-    cloneElement,
-    isValidElement
+    useLayoutEffect
 } from 'react'
 import { createPortal } from 'react-dom'
 import { usePopoverContext } from './GPopoverContext'
-import { composeRefs } from './composeRefs'
+import { motion, AnimatePresence } from 'motion/react'
 
 type PopoverAnchor = 'bottom-left' | 'bottom-right' | 'bottom-center'
 
@@ -17,7 +15,6 @@ interface IProps {
     className?: string
     offset?: number
     anchor?: PopoverAnchor
-    forceMount?: boolean
     asChild?: boolean
 }
 
@@ -26,7 +23,6 @@ const GPopoverContent: React.FC<IProps> = ({
     className = '',
     offset = 8,
     anchor = 'bottom-left',
-    forceMount = false,
     asChild = false
 }) => {
     const { open, setOpen, triggerRef, contentRef } =
@@ -81,7 +77,7 @@ const GPopoverContent: React.FC<IProps> = ({
         if (open) {
             requestAnimationFrame(updatePosition)
         }
-    }, [open, updatePosition])
+    }, [open])
 
     useEffect(() => {
         if (!open) return
@@ -114,44 +110,30 @@ const GPopoverContent: React.FC<IProps> = ({
             document.removeEventListener('mousedown', handler)
     }, [open, setOpen, triggerRef, contentRef])
 
+    const MotionWrapper = asChild ? motion.div : motion.div
 
-    // === Default: unmount total (tanpa animasi) === //
-    if (!open && !forceMount) return null
-
-    const stateProps = {
-        ref: contentRef,
-        style,
-        'data-state': open ? 'open' : 'closed',
-        hidden: !open && forceMount && !asChild,
-    }
-
-    const element =
-        asChild && isValidElement(children)
-            ? cloneElement(
-                children as React.ReactElement<any>,
-                {
-                    ...stateProps,
-                    ref: composeRefs(
-                        (children as any).ref,
-                        contentRef
-                    ),
-                    className: [
-                        (children as any).props?.className,
-                        className,
-                    ]
-                        .filter(Boolean)
-                        .join(' '),
-                }
-            )
-            : (
-                <div
-                    {...stateProps}
+    return createPortal(
+        <AnimatePresence>
+            {open && (
+                <MotionWrapper
+                    ref={contentRef}
+                    style={style}
                     className={className}
+                    initial="closed"
+                    animate="open"
+                    exit="closed"
+                    variants={{
+                        closed: { opacity: 0, scale: 0.96 },
+                        open: { opacity: 1, scale: 1 }
+                    }}
+                    transition={{ duration: 0.15, ease: 'easeOut' }}
                 >
                     {children}
-                </div>
-            )
-    return createPortal(element, document.body)
+                </MotionWrapper>
+            )}
+        </AnimatePresence>,
+        document.body
+    )
 }
 
 export default GPopoverContent
