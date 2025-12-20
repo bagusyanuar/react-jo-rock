@@ -10,7 +10,7 @@ const LoginFormStory = () => {
             </p>
             <Card className='w-72'>
                 <Paragraph className='font-semibold '>
-                    40
+                    Login Form
                 </Paragraph>
             </Card>
         </div>
