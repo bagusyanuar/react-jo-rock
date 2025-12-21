@@ -2,21 +2,22 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
 interface IProps {
-    children: string
+    children?: React.ReactNode
     className?: string
 }
-const Paragraph: React.FC<IProps> = ({
+
+const GCard: React.FC<IProps> = ({
     children,
     className = ''
 }) => {
     return (
-        <p className={twMerge(
-            'text-neutral-700 text-sm',
+        <div className={twMerge(
+            'p-4 bg-white shadow-xl rounded-md',
             className
         )}>
             {children}
-        </p>
+        </div>
     )
 }
 
-export default Paragraph
+export default GCard

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Card } from '../../ui/components/container'
-import { Paragraph } from '../../ui/components/typography'
+import { GCard, GFlex } from '../../ui/components/container'
+import { GText } from '../../ui/components/typography'
 
 const LoginFormStory = () => {
     return (
@@ -8,12 +8,17 @@ const LoginFormStory = () => {
             <p className='text-lg text-white mb-3 font-semibold'>
                 LOGIN STORY
             </p>
-            <Card className='w-72'>
-                <Paragraph className='font-semibold '>
-                    Login Form
-                </Paragraph>
-            </Card>
-        </div>
+            <GCard className='w-72'>
+                <GText>
+                    GTEXT
+                </GText>
+                <GFlex className='gap-3'>
+                    <span>CEK</span>
+                    <span>FLEX</span>
+                    <span>BOX</span>
+                </GFlex>
+            </GCard>
+        </div >
     )
 }
 
