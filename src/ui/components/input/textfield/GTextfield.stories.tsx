@@ -50,6 +50,8 @@ type Story = StoryObj<typeof GTextfield>;
 export const Default: Story = {
     args: {
         placeholder: 'Teks Input Standar',
+        inputSize: 'small',
+        className: 'w-full'
     },
 };
 

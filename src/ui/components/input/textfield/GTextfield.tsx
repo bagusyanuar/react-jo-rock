@@ -1,15 +1,24 @@
 import React from 'react'
 import type { IconType } from 'react-icons'
 import { twMerge } from 'tailwind-merge'
-import {cn} from '../../../../common/utils/cn'
+import { cn } from '../../../../common/utils/cn'
 import {
-  textfieldWrapperVariants,
-  textfieldInputVariants,
+    wrapperVariant,
+    inputVariant,
+    iconVariant
 } from './textfield.variants'
 import type { VariantProps } from 'class-variance-authority'
 
+type TWrapperVariant = VariantProps<typeof wrapperVariant>
+type TInputVariant = VariantProps<typeof inputVariant>
+type TInputVariantSize = NonNullable<VariantProps<typeof inputVariant>['inputSize']>
 
-interface IProps extends React.InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof textfieldWrapperVariants> {
+const ICON_SIZE_MAP: Record<TInputVariantSize, number> = {
+    medium: 14,
+    small: 12
+}
+
+interface IProps extends React.InputHTMLAttributes<HTMLInputElement>, TWrapperVariant, TInputVariant {
     className?: string
     inputClassName?: string
     placeholder?: string
@@ -18,10 +27,12 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement>, VariantPro
     suffixIcon?: IconType
     disabled?: boolean
     isError?: boolean
+    inputSize?: TInputVariant['inputSize']
 }
 
 const GTextfield = React.forwardRef<HTMLInputElement, IProps>((
     {
+        inputSize,
         className = '',
         inputClassName = '',
         placeholder = '',
@@ -36,26 +47,30 @@ const GTextfield = React.forwardRef<HTMLInputElement, IProps>((
     return (
         <div
             className={cn(
-                textfieldWrapperVariants({
+                wrapperVariant({
+                    inputSize,
                     error: isError,
                     disabled
                 }),
                 className
             )}
         >
-            {PrefixIcon && <div className={twMerge(
-                'h-full w-8 flex items-center justify-center text-neutral-700',
-                isError && 'text-red-500'
+            {PrefixIcon && <div className={cn(
+                iconVariant({
+                    inputSize,
+                    error: isError
+                })
             )}>
-                <PrefixIcon size={14}/>
+                <PrefixIcon size={ICON_SIZE_MAP[inputSize || 'medium']} />
             </div>}
             <input
                 ref={ref}
                 type={type}
                 className={cn(
-                    textfieldInputVariants({
+                    inputVariant({
                         hasPrefixIcon: !!PrefixIcon,
                         hasSuffixIcon: !!SuffixIcon,
+                        inputSize,
                         disabled
                     }),
                     inputClassName
@@ -64,11 +79,13 @@ const GTextfield = React.forwardRef<HTMLInputElement, IProps>((
                 disabled={disabled}
                 {...props}
             />
-            {SuffixIcon && <div className={twMerge(
-                'h-full w-8 flex items-center justify-center text-neutral-700',
-                isError && 'text-red-500'
+            {SuffixIcon && <div className={cn(
+                iconVariant({
+                    inputSize,
+                    error: isError
+                })
             )}>
-                <SuffixIcon size={14} />
+                <SuffixIcon size={ICON_SIZE_MAP[inputSize || 'medium']} />
             </div>}
         </div>
     )
