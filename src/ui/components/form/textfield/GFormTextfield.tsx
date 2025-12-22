@@ -1,7 +1,7 @@
 import { GTextfield } from '../../input/textfield'
 import { GLabel } from '../../label'
 import { Controller, type Control, type FieldValues, type Path } from 'react-hook-form'
-import styled from 'styled-components'
+import type { IconType } from 'react-icons'
 
 export interface IProps<T extends FieldValues> {
     control: Control<T>
@@ -12,6 +12,9 @@ export interface IProps<T extends FieldValues> {
     placeholder?: string
     disabled?: boolean
     label?: string
+    required?: boolean
+    prefixIcon?: IconType
+    suffixIcon?: IconType
 }
 
 const GFormTextfield = <T extends FieldValues,>({
@@ -23,10 +26,13 @@ const GFormTextfield = <T extends FieldValues,>({
     errorMessage = '',
     placeholder = '',
     disabled = false,
+    required = false,
+    prefixIcon,
+    suffixIcon,
 }: IProps<T>) => {
     return (
         <div className={className}>
-            {label !== '' && <GLabel text={label} />}
+            {label !== '' && <GLabel text={label} required={required} />}
             <Controller
                 control={control}
                 name={name}
@@ -36,18 +42,14 @@ const GFormTextfield = <T extends FieldValues,>({
                         placeholder={placeholder}
                         disabled={disabled}
                         isError={isError}
+                        prefixIcon={prefixIcon}
+                        suffixIcon={suffixIcon}
                     />
                 )}
             />
-            {isError && <Message>{errorMessage}</Message>}
+            {isError && <div className='text-xs text-red-500 block'>{errorMessage}</div>}
         </div>
     )
 }
 
 export default GFormTextfield
-
-const Message = styled.span`
-    font-size: 0.75rem;
-    color: ${({theme}) => theme.colors.errorColor};
-    display: block;
-`
