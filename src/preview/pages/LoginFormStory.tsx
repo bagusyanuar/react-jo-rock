@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { GCard, GFlex } from '../../ui/components/container'
 import { GText } from '../../ui/components/typography'
 import { Controller, useForm, type Control, type FieldValues, type Path } from 'react-hook-form'
@@ -25,18 +25,24 @@ type TLoginSchema = z.infer<typeof loginSchema>
 
 const LoginFormStory = () => {
 
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const { control, handleSubmit, formState: { errors } } = useForm<TLoginSchema>({
         resolver: zodResolver(loginSchema),
         mode: 'onSubmit',
         shouldFocusError: false,
         defaultValues: {
-            email: ''
+            email: '',
+            password: ''
         }
     })
 
     const onSubmit = async (data: TLoginSchema) => {
-        console.log(data)
+        setIsLoading(true)
+        await new Promise(resolve => setTimeout(resolve, 1500))
+        setIsLoading(false)
+        alert(`successfully : email (${data.email}) & password ${data.password}`)
     }
+    
     return (
         <div className='w-full h-dvh bg-(--g-brand-500) flex flex-col items-center justify-center'>
             <GCard className='w-72 py-4 px-6'>
@@ -75,6 +81,7 @@ const LoginFormStory = () => {
                 <GButton
                     text='Login'
                     className='w-full'
+                    loading={isLoading}
                     onClick={handleSubmit(onSubmit)}
                 />
             </GCard>
