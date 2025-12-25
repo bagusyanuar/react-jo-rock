@@ -8,7 +8,7 @@ const Sidebar: React.FC<IProps> = ({
     children
 }) => {
     return (
-        <aside className='w-64 h-dvh bg-(--g-brand-500)'>
+        <aside className='w-64 h-dvh bg-white shadow-md border-r border-gray-300 flex flex-col'>
             { children }
         </aside>
     )
